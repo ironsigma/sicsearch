@@ -34,6 +34,7 @@ setup(
     packages=['sicsearch'],
     package_dir={'sicsearch': 'sicsearch'},
     install_requires=requirements,
+    download_url='https://github.com/ironsigma/sicsearch/archive/v0.1.0-alpha.1.tar.gz',
     license='MIT',
     zip_safe=True,
     keywords=['SIC', 'SafeInCloud', 'Decryption', 'Password'],
