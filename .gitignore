@@ -1,3 +1,4 @@
-sicsearch.egg-info/
-dist/
-build/
+/sicsearch.egg-info/
+/dist/
+/build/
+/venv/
