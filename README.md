@@ -32,7 +32,7 @@ inside each entry and display which field matched in parenthesis.
 ### Inactivity
 
 If there is no activity (key presses) in three minutes, the script will
-shutdown to prevent keeping the database open.
+shutdown to prevent the database from staying open.
 
 ### Keys
 
@@ -66,4 +66,3 @@ Use the following keys in view mode:
 
 - Change/customize key-bindings
 - Toggle masked fields
-

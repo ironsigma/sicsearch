@@ -29,7 +29,9 @@ class CardPanel:
 
             for f in card['fields']:
                 if f['value'] is None:
+                    field_idx += 1
                     continue
+
                 self.field_count += 1
                 label_len = len(f['name'])
                 if label_len > self.longest:
@@ -38,9 +40,10 @@ class CardPanel:
                 if (self.selected == -1 and
                         f['type'] in ('password', 'one_time_password', 'secret', 'pin')):
                     self.selected = field_idx
+
                 field_idx += 1
 
-            if self.selected == -1:
+            if self.field_count and self.selected == -1:
                 self.selected = 0
 
             # print title
@@ -51,6 +54,7 @@ class CardPanel:
             field_idx = 0
             for f in card['fields']:
                 if f['value'] is None:
+                    field_idx += 1
                     continue
 
                 if f['type'] in ('password', 'one_time_password', 'secret'):
@@ -68,6 +72,7 @@ class CardPanel:
 
                 if field_idx == self.selected:
                     self.win.addstr(y_pos, self.longest + 2, '>', curses.color_pair(1))
+
                 field_idx += 1
 
         self.panel.top()
