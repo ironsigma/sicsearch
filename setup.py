@@ -8,7 +8,7 @@ except ImportError:
     from distutils.core import setup
 
 
-def md2rst(filename, repo_url):
+def md2rst(filename, github_repo):
     text = ''
     incodeblock = False
     with open(filename) as fh:
@@ -45,7 +45,7 @@ def md2rst(filename, repo_url):
 
             elif '![' in line:
                 match = re.match(r'!\[([^\]]+)\]\(([^)]+)\)', line)
-                prefix = '' if 'http' in line else repo_url + '/raw/master/'
+                prefix = '' if 'http' in line else github_repo + '/raw/master/'
                 text += '.. image:: ' + prefix + match.group(2) + '\n'
                 text += '   :alt: ' + match.group(1) + '\n'
 
@@ -54,12 +54,14 @@ def md2rst(filename, repo_url):
                 text += line
     return text
 
+github_repo = 'https://github.com/ironsigma/sicsearch'
+
 version = {}
+github_archive = ''
 with open("sicsearch/version.py") as fp:
     exec(fp.read(), version)
+    github_archive=github_repo + '/archive/v' + version['__version__'].replace('a', '-alpha.') + '.tar.gz'
 
-
-repo_url = 'https://github.com/ironsigma/sicsearch'
 
 requirements = [
     'passlib',
@@ -77,14 +79,14 @@ setup(
     name='sicsearch',
     version=version['__version__'],
     description='Safe in Cloud DB Search',
-    long_description=md2rst('README.md', repo_url),
+    long_description=md2rst('README.md', github_repo),
     author='Juan D Frias',
     author_email='juandfrias@gmail.com',
     url='https://github.com/ironsigma/sicsearch',
     packages=['sicsearch'],
     package_dir={'sicsearch': 'sicsearch'},
     install_requires=requirements,
-    download_url=repo_url + '/archive/v0.1.0-alpha.1.tar.gz',
+    download_url=github_archive,
     license='MIT',
     zip_safe=True,
     keywords=['SIC', 'SafeInCloud', 'Decryption', 'Password'],
