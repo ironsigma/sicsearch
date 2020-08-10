@@ -1,6 +1,9 @@
 import curses
 import curses.panel
 import pyperclip
+import webbrowser
+
+from .suppress import suppress_stdout_stderr
 
 
 class CardPanel:
@@ -115,6 +118,11 @@ class CardPanel:
 
         elif c in (10, 13, curses.KEY_ENTER):
             if self.selected != -1:
-                pyperclip.copy(self.fields[self.selected]['value'])
+                field = self.fields[self.selected]
+                if field['type'] == 'website':
+                    with suppress_stdout_stderr():
+                        webbrowser.open(field['value'])
+                else:
+                    pyperclip.copy(field['value'])
 
         return None
